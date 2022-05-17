@@ -7,7 +7,7 @@ EXEC sp_databases;
 --Switch(To Use) to database
 use BookStore;
 
---Create table
+--Create Users table 
 create table Users(
 	UserId int identity (1,1) primary key,
 	FullName varchar(200) not null,
