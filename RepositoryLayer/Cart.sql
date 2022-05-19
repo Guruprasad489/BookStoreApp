@@ -72,7 +72,8 @@ BEGIN TRY
 		b.BookImage,
 		b.Author,
 		b.DiscountPrice,
-		b.ActualPrice		
+		b.ActualPrice,
+		b.Quantity
 	from Cart c
 	inner join Books b
 	on c.BookId = b.BookId

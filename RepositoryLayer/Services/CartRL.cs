@@ -136,6 +136,7 @@ namespace RepositoryLayer.Services
             cart.DiscountPrice = Convert.ToDouble(rdr["DiscountPrice"] == DBNull.Value ? default : rdr["DiscountPrice"]);
             cart.ActualPrice = Convert.ToDouble(rdr["ActualPrice"] == DBNull.Value ? default : rdr["ActualPrice"]);
             cart.BooksQty = Convert.ToInt32(rdr["BooksQty"] == DBNull.Value ? default : rdr["BooksQty"]);
+            cart.Stock = Convert.ToInt32(rdr["Quantity"] == DBNull.Value ? default : rdr["Quantity"]);
             
             return cart;
         }
