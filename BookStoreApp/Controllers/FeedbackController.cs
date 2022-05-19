@@ -19,7 +19,7 @@ namespace BookStoreApp.Controllers
         }
 
         [HttpPost("Add")]
-        [Authorize]
+        [Authorize(Roles = Roles.User)]
         public IActionResult AddFeedback(AddFeedback addFeedback)
         {
             try

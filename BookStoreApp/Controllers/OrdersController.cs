@@ -10,7 +10,7 @@ namespace BookStoreApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(Roles = Roles.User)]
     public class OrdersController : ControllerBase
     {
         private readonly IOrdersBL ordersBL;

@@ -9,8 +9,7 @@ using System.Linq;
 namespace BookStoreApp.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
-    [Authorize]
+    [Authorize(Roles = Roles.User)]
     public class CartController : ControllerBase
     {
         private readonly ICartBL cartBL;

@@ -138,6 +138,7 @@ namespace RepositoryLayer.Services
 
             var claims = new[]
             {
+                new Claim(ClaimTypes.Role, "User"),
                 new Claim(ClaimTypes.Email, emailID),
                 new Claim("UserId", userId.ToString())
             };

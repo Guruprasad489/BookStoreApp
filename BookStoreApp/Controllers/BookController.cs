@@ -8,7 +8,6 @@ namespace BookStoreApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class BookController : ControllerBase
     {
         private readonly IBookBL bookBL;
@@ -18,6 +17,7 @@ namespace BookStoreApp.Controllers
         }
 
         [HttpPost("Add")]
+        [Authorize(Roles = Roles.Admin)]
         public IActionResult AddBook(AddBook addBook)
         {
             try
@@ -39,6 +39,7 @@ namespace BookStoreApp.Controllers
         }
 
         [HttpPut("Update")]
+        [Authorize(Roles = Roles.Admin)]
         public IActionResult UpdateBook(BookModel updateBook)
         {
             try
@@ -60,6 +61,7 @@ namespace BookStoreApp.Controllers
         }
 
         [HttpDelete("Delete")]
+        [Authorize(Roles = Roles.Admin)]
         public IActionResult DeleteBook(int bookId)
         {
             try

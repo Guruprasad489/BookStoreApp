@@ -10,7 +10,7 @@ namespace BookStoreApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(Roles = Roles.User)]
     public class AddressController : ControllerBase
     {
         private readonly IAddressBL addressBL;

@@ -29,6 +29,8 @@ namespace BookStoreApp
         /// <param name="services">The services.</param>
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IAdminBL, AdminBL>();
+            services.AddTransient<IAdminRL, AdminRL>();
             services.AddTransient<IUserBL, UserBL>();
             services.AddTransient<IUserRL, UserRL>();
             services.AddTransient<IBookBL, BookBL>();
@@ -47,6 +49,14 @@ namespace BookStoreApp
             services.AddControllers();
 
             ConfigureSwagger(services);
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("RequireAdministratorRole",
+                     policy => policy.RequireRole("Administrator"));
+                options.AddPolicy("RequireUserRole",
+                     policy => policy.RequireRole("User"));
+            });
 
             services.AddAuthentication(options =>
             {

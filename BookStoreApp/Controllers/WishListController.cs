@@ -9,7 +9,7 @@ namespace BookStoreApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(Roles = Roles.User)]
     public class WishListController : ControllerBase
     {
         private readonly IWishListBL wishListBL;

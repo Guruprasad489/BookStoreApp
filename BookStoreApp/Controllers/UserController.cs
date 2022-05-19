@@ -105,7 +105,7 @@ namespace BookStoreApp.Controllers
         /// <param name="resetPassword">The reset password.</param>
         /// <returns></returns>
         [HttpPatch("ResetPassword")]
-        [Authorize]
+        [Authorize(Roles = Roles.User)]
         public IActionResult ResetPassword(ResetPassword resetPassword)
         {
             try
