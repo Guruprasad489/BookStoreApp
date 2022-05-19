@@ -6,7 +6,6 @@ namespace CommonLayer.Models
 {
     public class AddOrder
     {
-        public int BookId { get; set; }
         public int AddressId { get; set; }
     }
 }

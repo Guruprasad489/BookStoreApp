@@ -15,7 +15,7 @@ namespace BusinessLayer.Services
             this.orderRL = orderRL;
         }
 
-        public AddOrder AddOrder(AddOrder addOrder, int userId)
+        public string AddOrder(AddOrder addOrder, int userId)
         {
             try
             {

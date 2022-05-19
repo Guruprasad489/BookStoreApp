@@ -28,7 +28,7 @@ namespace BookStoreApp.Controllers
                 var res = ordersBL.AddOrder(addOrder, userId);
                 if (res != null)
                 {
-                    return Ok(new { success = true, message = "Ordered sucessfully", data = res });
+                    return Ok(new { success = true, message = res });
                 }
                 else
                 {

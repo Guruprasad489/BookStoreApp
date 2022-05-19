@@ -18,37 +18,67 @@ namespace RepositoryLayer.Services
             this.configuration = configuration;
         }
 
-        public AddOrder AddOrder(AddOrder addOrder, int userId)
+        public string AddOrder(AddOrder addOrder, int userId)
         {
             using (SqlConnection con = new SqlConnection(configuration["ConnectionString:BookStore"]))
             {
+                con.Open();
+                SqlTransaction sqlTran = con.BeginTransaction();
+                SqlCommand cmd = con.CreateCommand();
+                cmd.Transaction = sqlTran;
                 try
                 {
-                    SqlCommand cmd = new SqlCommand("spAddOrders", con);
+                    List<CartResponse> cartList = new List<CartResponse>();
+                    List<string> orderList = new List<string>();
+
+                    cmd = new SqlCommand("spGetAllCart", con);
                     cmd.CommandType = CommandType.StoredProcedure;
-
-                    cmd.Parameters.AddWithValue("@BookId", addOrder.BookId);
                     cmd.Parameters.AddWithValue("@UserId", userId);
-                    cmd.Parameters.AddWithValue("@AddressId", addOrder.AddressId);
+                    cmd.Transaction = sqlTran;
+                    SqlDataReader reader = cmd.ExecuteReader();
 
-                    con.Open();
-                    var result = Convert.ToInt32(cmd.ExecuteScalar());
-                    con.Close();
-
-                    if (result != 2 && result != 3 && result != 4)
+                    if (reader.HasRows)
                     {
-                        return addOrder;
+                        while (reader.Read())
+                        {
+                            CartResponse cart = new CartResponse();
+                            cart.UserId = Convert.ToInt32(reader["UserId"] == DBNull.Value ? default : reader["UserId"]);
+                            cart.BookId = Convert.ToInt32(reader["BookId"] == DBNull.Value ? default : reader["BookId"]);
+                            cartList.Add(cart);
+                        }
+                        reader.Close();
+
+                        foreach (var cart in cartList)
+                        {
+                            cmd = new SqlCommand("spAddOrders", con);
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.AddWithValue("@BookId", cart.BookId);
+                            cmd.Parameters.AddWithValue("@UserId", userId);
+                            cmd.Parameters.AddWithValue("@AddressId", addOrder.AddressId);
+                            cmd.Transaction = sqlTran;
+                            int result = Convert.ToInt32(cmd.ExecuteScalar());
+                            if (result != 2 && result != 3 && result != 4)
+                            {
+                                orderList.Add("Item Added to OrderList");
+                            }
+                            else
+                            {
+                                sqlTran.Rollback();
+                                return null;
+                            }
+                        }
+                        sqlTran.Commit();
+                        con.Close();
+                        return "Congratulations! Order Placed Successfully";
                     }
                     else
-                    {
                         return null;
-                    }
                 }
                 catch (Exception ex)
                 {
+                    sqlTran.Rollback();
                     throw ex;
                 }
-
             }
         }
 

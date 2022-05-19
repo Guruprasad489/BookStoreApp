@@ -7,7 +7,7 @@ namespace BusinessLayer.Interfaces
 {
     public interface IOrdersBL
     {
-        public AddOrder AddOrder(AddOrder addOrder, int userId);
+        public string AddOrder(AddOrder addOrder, int userId);
         public List<OrdersResponse> GetAllOrders(int userId);
     }
 }

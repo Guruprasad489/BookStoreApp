@@ -7,7 +7,7 @@ namespace RepositoryLayer.Interfaces
 {
     public interface IOrdersRL
     {
-        public AddOrder AddOrder(AddOrder addOrder, int userId);
+        public string AddOrder(AddOrder addOrder, int userId);
         public List<OrdersResponse> GetAllOrders(int userId);
     }
 }
