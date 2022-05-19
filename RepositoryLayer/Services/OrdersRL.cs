@@ -132,8 +132,8 @@ namespace RepositoryLayer.Services
             order.BooksQty = Convert.ToInt32(rdr["BooksQty"] == DBNull.Value ? default : rdr["BooksQty"]);
             order.OrderDateTime = Convert.ToDateTime(rdr["OrderDate"] == DBNull.Value ? default : rdr["OrderDate"]);
             order.OrderDate = order.OrderDateTime.ToString("dd-MM-yyyy");
-            order.OrderPrice = Convert.ToInt32(rdr["OrderPrice"] == DBNull.Value ? default : rdr["OrderPrice"]);
-            order.ActualPrice = Convert.ToInt32(rdr["ActualPrice"] == DBNull.Value ? default : rdr["ActualPrice"]);
+            order.OrderPrice = Convert.ToDouble(rdr["OrderPrice"] == DBNull.Value ? default : rdr["OrderPrice"]);
+            order.ActualPrice = Convert.ToDouble(rdr["ActualPrice"] == DBNull.Value ? default : rdr["ActualPrice"]);
             order.BookName = Convert.ToString(rdr["BookName"] == DBNull.Value ? default : rdr["BookName"]);
             order.BookImage = Convert.ToString(rdr["BookImage"] == DBNull.Value ? default : rdr["BookImage"]);
             order.Author = Convert.ToString(rdr["Author"] == DBNull.Value ? default : rdr["Author"]);

@@ -8,7 +8,6 @@ namespace BookStoreApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = Roles.Admin)]
     public class AdminController : ControllerBase
     {
         private readonly IAdminBL adminBL;
@@ -17,7 +16,7 @@ namespace BookStoreApp.Controllers
             this.adminBL = adminBL;
         }
 
-        [HttpPost("AdminLogin")]
+        [HttpPost("Login")]
         public IActionResult AdminLogin(AdminLogin adminLogin)
         {
             try
