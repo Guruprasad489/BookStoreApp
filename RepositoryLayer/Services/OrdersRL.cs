@@ -23,9 +23,9 @@ namespace RepositoryLayer.Services
             using (SqlConnection con = new SqlConnection(configuration["ConnectionString:BookStore"]))
             {
                 con.Open();
-                SqlTransaction sqlTran = con.BeginTransaction();
+                //SqlTransaction sqlTran = con.BeginTransaction();
                 SqlCommand cmd = con.CreateCommand();
-                cmd.Transaction = sqlTran;
+                SqlTransaction sqlTran = null;
                 try
                 {
                     List<CartResponse> cartList = new List<CartResponse>();
@@ -34,7 +34,7 @@ namespace RepositoryLayer.Services
                     cmd = new SqlCommand("spGetAllCart", con);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@UserId", userId);
-                    cmd.Transaction = sqlTran;
+                    //cmd.Transaction = sqlTran;
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     if (reader.HasRows)
@@ -42,12 +42,13 @@ namespace RepositoryLayer.Services
                         while (reader.Read())
                         {
                             CartResponse cart = new CartResponse();
-                            cart.UserId = Convert.ToInt32(reader["UserId"] == DBNull.Value ? default : reader["UserId"]);
+                            //cart.UserId = Convert.ToInt32(reader["UserId"] == DBNull.Value ? default : reader["UserId"]);
                             cart.BookId = Convert.ToInt32(reader["BookId"] == DBNull.Value ? default : reader["BookId"]);
                             cartList.Add(cart);
                         }
                         reader.Close();
 
+                        sqlTran = con.BeginTransaction();
                         foreach (var cart in cartList)
                         {
                             cmd = new SqlCommand("spAddOrders", con);

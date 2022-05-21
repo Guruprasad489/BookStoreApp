@@ -32,6 +32,6 @@ namespace CommonLayer.Models
         [Required(ErrorMessage = "{0} should not be empty")]
         [RegularExpression(@"^[1-9][0-9]{9}$", ErrorMessage = "Mobile Number is not valid")]
         [DataType(DataType.PhoneNumber)]
-        public long MobileNumber { get; set; }
+        public string MobileNumber { get; set; }
     }
 }
