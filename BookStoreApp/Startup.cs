@@ -139,11 +139,11 @@ namespace BookStoreApp
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors("AllowOrigin");
-
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("AllowOrigin");
 
             app.UseAuthentication();
 
