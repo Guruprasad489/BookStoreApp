@@ -132,7 +132,7 @@ namespace RepositoryLayer.Services
             order.UserId = Convert.ToInt32(rdr["UserId"] == DBNull.Value ? default : rdr["UserId"]);
             order.BooksQty = Convert.ToInt32(rdr["BooksQty"] == DBNull.Value ? default : rdr["BooksQty"]);
             order.OrderDateTime = Convert.ToDateTime(rdr["OrderDate"] == DBNull.Value ? default : rdr["OrderDate"]);
-            order.OrderDate = order.OrderDateTime.ToString("dd-MM-yyyy");
+            order.OrderDate = order.OrderDateTime.ToString("dd-MMM-yyyy");
             order.OrderPrice = Convert.ToDouble(rdr["OrderPrice"] == DBNull.Value ? default : rdr["OrderPrice"]);
             order.ActualPrice = Convert.ToDouble(rdr["ActualPrice"] == DBNull.Value ? default : rdr["ActualPrice"]);
             order.BookName = Convert.ToString(rdr["BookName"] == DBNull.Value ? default : rdr["BookName"]);

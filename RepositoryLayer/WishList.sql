@@ -9,15 +9,18 @@ create table WishList(
 --Stored Procedures for WishList
 
 -----Add to WishList-----
-create procedure spAddToWishList
+alter procedure spAddToWishList
 (
 	@UserId int,
 	@BookId int
 )
 as
 BEGIN TRY
-	insert into WishList
-	values( @UserId, @BookId);
+	IF (NOT EXISTS(SELECT * FROM WishList WHERE BookId = @BookId and UserId = @UserId))
+		begin
+			insert into WishList
+			values( @UserId, @BookId);
+		end
 END TRY
 BEGIN CATCH
 SELECT

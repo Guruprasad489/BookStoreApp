@@ -10,7 +10,7 @@ create table Cart(
 --Stored Procedures for Cart
 
 -----Add to Cart-----
-create procedure spAddToCart
+alter procedure spAddToCart
 (
     @BooksQty int,
 	@UserId int,
@@ -18,8 +18,11 @@ create procedure spAddToCart
 )
 as
 BEGIN TRY
-	insert into Cart
-	values(@BooksQty, @UserId, @BookId);
+	IF (NOT EXISTS(SELECT * FROM Cart WHERE BookId = @BookId and UserId=@UserId))
+	begin
+		insert into Cart
+		values(@BooksQty, @UserId, @BookId);
+	end
 END TRY
 BEGIN CATCH
 SELECT

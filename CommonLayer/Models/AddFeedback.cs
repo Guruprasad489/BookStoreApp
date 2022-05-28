@@ -8,7 +8,7 @@ namespace CommonLayer.Models
     public class AddFeedback
     {
         [Required(ErrorMessage = "{0} should not be empty")]
-        public int Rating { get; set; } 
+        public string Rating { get; set; } 
         public string Comment { get; set; } 
         public int BookId { get; set; } 
     }

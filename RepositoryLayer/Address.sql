@@ -108,15 +108,14 @@ END CATCH
 
 ---Get Address---
 
-create procedure spGetAddress
+alter procedure spGetAddress
 (
 	@UserId int,
-	@TypeId int,
 	@AddressId int
 )
 as
 BEGIN TRY
-	select * from Address where UserId = @UserId and TypeId = @TypeId and AddressId = @AddressId;
+	select * from Address where UserId = @UserId and AddressId = @AddressId;
 END TRY
 BEGIN CATCH
 SELECT

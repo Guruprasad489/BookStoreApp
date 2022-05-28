@@ -125,7 +125,7 @@ namespace RepositoryLayer.Services
             }
         }
 
-        public AddressModel GetAddressById(int typeId,int addressId, int userId)
+        public AddressModel GetAddressById(int addressId, int userId)
         {
             using (SqlConnection con = new SqlConnection(configuration["ConnectionString:BookStore"]))
             {
@@ -136,7 +136,6 @@ namespace RepositoryLayer.Services
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.AddWithValue("@UserId", userId);
-                    cmd.Parameters.AddWithValue("@TypeId", typeId);
                     cmd.Parameters.AddWithValue("@AddressId", addressId);
 
                     con.Open();

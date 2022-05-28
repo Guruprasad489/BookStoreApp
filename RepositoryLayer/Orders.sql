@@ -30,26 +30,26 @@ BEGIN TRY
 		begin
 			IF (EXISTS(SELECT * FROM Address WHERE AddressId = @AddressId))
 			begin
-			BEGIN TRANSACTION
-				SELECT @BookQuantity = BooksQty FROM Cart Where BookId = @BookId AND UserId = @UserId;	
-				set @OrderPrice = (select DiscountPrice FROM Books WHERE BookId = @BookId);
-				set @ActualPrice = (select ActualPrice FROM Books WHERE BookId = @BookId);
+				BEGIN TRANSACTION
+					SELECT @BookQuantity = BooksQty FROM Cart Where BookId = @BookId AND UserId = @UserId;	
+					set @OrderPrice = (select DiscountPrice FROM Books WHERE BookId = @BookId);
+					set @ActualPrice = (select ActualPrice FROM Books WHERE BookId = @BookId);
 				
-				if((select Quantity from Books where BookId=@BookId)>= @BookQuantity)
-				BEGIN
-					insert into Orders
-					values(getdate(), @BookQuantity, @OrderPrice * @BookQuantity, @ActualPrice * @BookQuantity, @BookId, @UserId, @AddressId);
+					if((select Quantity from Books where BookId=@BookId)>= @BookQuantity)
+					BEGIN
+						insert into Orders
+						values(getdate(), @BookQuantity, @OrderPrice * @BookQuantity, @ActualPrice * @BookQuantity, @BookId, @UserId, @AddressId);
 
-					update Books set Quantity = Quantity-@BookQuantity where BookId = @BookId;
+						update Books set Quantity = Quantity-@BookQuantity where BookId = @BookId;
 
-					delete from Cart where BookId=@BookId and UserId=@UserId;
-				END
-				else
-					begin
-						select 2
-					end
+						delete from Cart where BookId=@BookId and UserId=@UserId;
+					END
+					else
+						begin
+							select 2
+						end
 
-			COMMIT TRANSACTION
+				COMMIT TRANSACTION
 			end
 			else
 				begin

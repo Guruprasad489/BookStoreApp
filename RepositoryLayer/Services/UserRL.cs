@@ -92,7 +92,7 @@ namespace RepositoryLayer.Services
                     {
                         while (rdr.Read())
                         {
-                            var userId = Convert.ToInt64(rdr["UserId"] == DBNull.Value ? default : rdr["UserId"]);
+                            loginResponse.UserId = Convert.ToInt32(rdr["UserId"] == DBNull.Value ? default : rdr["UserId"]);
                             var password = Convert.ToString(rdr["Password"] == DBNull.Value ? default : rdr["Password"]);
 
                             loginResponse.FullName = Convert.ToString(rdr["FullName"] == DBNull.Value ? default : rdr["FullName"]);
@@ -102,7 +102,7 @@ namespace RepositoryLayer.Services
                             var decryptPassword = DecryptPassword(password);
                             if (decryptPassword == userLogin.Password)
                             {
-                                loginResponse.Token = GenerateSecurityToken(userLogin.EmailId, userId);
+                                loginResponse.Token = GenerateSecurityToken(userLogin.EmailId, loginResponse.UserId);
                                 return loginResponse;
                             }
                             else

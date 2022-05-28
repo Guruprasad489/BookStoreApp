@@ -51,11 +51,11 @@ namespace BusinessLayer.Services
             }
         }
 
-        public AddressModel GetAddressById(int typeId, int addressId, int userId)
+        public AddressModel GetAddressById(int addressId, int userId)
         {
             try
             {
-                return addressRL.GetAddressById(typeId, addressId, userId);
+                return addressRL.GetAddressById(addressId, userId);
             }
             catch (Exception ex)
             {

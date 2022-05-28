@@ -35,7 +35,7 @@ namespace RepositoryLayer.Services
                     var result = cmd.ExecuteNonQuery();
                     con.Close();
 
-                    if (result != 0)
+                    if (result > 0)
                     {   
                         return addCart;
                     }

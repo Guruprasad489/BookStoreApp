@@ -86,12 +86,12 @@ namespace BookStoreApp.Controllers
         }
 
         [HttpGet("Get")]
-        public IActionResult GetAddressById(int typeId, int addressId)
+        public IActionResult GetAddressById(int addressId)
         {
             try
             {
                 int userId = Convert.ToInt32(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
-                var res = addressBL.GetAddressById(typeId,addressId, userId);
+                var res = addressBL.GetAddressById(addressId, userId);
                 if (res != null)
                 {
                     return Ok(new { success = true, message = "Get Address sucessfully", data = res });
